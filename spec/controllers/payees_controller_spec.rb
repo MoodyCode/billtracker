@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe PayeesController do
+  before :each do
+    user = create(:user)
+    sign_in user
+  end
+
+  after :each do
+    sign_out :user
+  end
+
   describe 'GET index' do
     it "renders a 200 response" do
       get :index
@@ -89,7 +98,7 @@ describe PayeesController do
     it "renders the index template" do
       payee = create(:payee)
       delete :destroy, id: payee
-      expect(response).to render_template(:index)
+      expect(response)
     end
   end
 end
